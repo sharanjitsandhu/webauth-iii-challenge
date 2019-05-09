@@ -33,10 +33,13 @@ router.post("/", (req, res) => {
 function generateToken(user) {
   const payload = {
     id: user.id, // what the token is describing
-    username: user.username
+    username: user.username,
+    // The department should be a string used to group the users.
+    // No need for a departments table or setting up relationships.
+    department: ["engineering"] //We are faking it here. It will be >> user.department -> new token is being generated
   };
   const options = {
-    expiresIn: "1h"
+    expiresIn: "24h"
   };
 
   return jwt.sign(payload, secrets.jwtSecret, options);
